@@ -39,7 +39,11 @@ def signup():
     if error1 or error2 or error3 or error4 :
         return render_template('errors.html',user_name=u_name,email=email,error1=error1,error2=error2,error3=error3,error4=error4)        
     else:
-        return render_template('welcome.html',user_name=u_name)
+        return redirect('/welcome?username={0}'.format(u_name))
 
+@app.route("/welcome",methods=['GET']) 
+def welcome():
+    username=request.args.get('username')
+    return render_template('welcome.html',username=username)
 
 app.run()
